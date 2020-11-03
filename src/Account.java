@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Account {
@@ -7,4 +8,9 @@ public class Account {
     private Date open;
     private Date close;
     private int balance;
+    private ArrayList<Order> orders;
+    private ShoppingCart shoppingCart;
+    private ArrayList<Payment> payments;
+    private Customer customer;
+
 }

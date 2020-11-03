@@ -14,7 +14,9 @@ public class Supplier {
 
     public boolean AddProduct(Product product){
         assert (product!=null);
-        if (product.HasSupplier())return false;
+        if (product.HasSupplier() || products.contains(product)) return false;
         return products.add(product);
     }
+
+
 }

@@ -34,8 +34,6 @@ public class Order {
         assert lineItem!=null;
         return lineItems.add(lineItem);
     }
-    public boolean RemoveLineItem(LineItem lineItem){
-        return lineItems.remove(lineItem);
-    }
+
 
 }

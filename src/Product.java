@@ -41,9 +41,6 @@ public class Product {
     public boolean HasPremiumAccount(){
         return premiumAccount!=null;
     }
-    public void RemovePremiumAccount(){
-        premiumAccount =null;
-    }
 
     public boolean HasSupplier(){
         return supplier!=null;

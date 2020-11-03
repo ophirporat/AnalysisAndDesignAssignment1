@@ -22,10 +22,6 @@ public class ShoppingCart {
         return lineItems.add(lineItem);
     }
 
-    public boolean RemoveLineItem(LineItem lineItem){
-        assert lineItem!=null;
-        return lineItems.remove(lineItem);
-    }
 
 
 }

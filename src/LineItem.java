@@ -17,4 +17,6 @@ public class LineItem {
         this.order = order;
         this.shoppingCart = shoppingCart;
     }
+
+
 }
