@@ -13,4 +13,17 @@ public class Account {
     private ArrayList<Payment> payments;
     private Customer customer;
 
+    public Account(String id, String billing_address , ShoppingCart shoppingCart, Customer customer) {
+        this.id = id;
+        this.billing_address = billing_address;
+        this.is_closed = false;
+        this.open = new Date();
+        this.close = null;
+        this.balance = 0;
+        this.orders = new ArrayList<>();
+        this.shoppingCart = shoppingCart;
+        this.payments = new ArrayList<>();
+        this.customer = customer;
+    }
+
 }

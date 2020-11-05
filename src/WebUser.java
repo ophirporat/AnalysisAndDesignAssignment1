@@ -9,12 +9,12 @@ public class WebUser {
     private Customer customer;
     private ShoppingCart shoppingCart;
 
-    public WebUser(String login_id, String password, UserState state, Customer customer,ShoppingCart shoppingCart) {
+    public WebUser(String login_id, String password, Customer customer) {
         this.login_id = login_id;
         this.password = password;
-        this.state = state;
+        this.state = UserState.New ;
         this.customer = customer;
-        this.shoppingCart=shoppingCart;
+
     }
 
     public boolean AddCustomer(Customer customer){
@@ -32,6 +32,11 @@ public class WebUser {
             return true;
         }
         return false;
+    }
+
+    public boolean DeleteWebUser(){
+        customer.RemoveWebUser();
+        return RemoveShoppingCart();
     }
     public boolean RemoveShoppingCart(){
         if (HasShoppingcart()){

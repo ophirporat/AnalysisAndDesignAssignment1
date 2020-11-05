@@ -10,8 +10,8 @@ public class ShoppingCart {
     // conmposition with Account
     private Account account;
 
-    public ShoppingCart(Date created, WebUser webUser,Account account) {
-        this.created = created;
+    public ShoppingCart() {
+        this.created = new Date();
         this.webUser = webUser;
         this.account =account;
         lineItems=new ArrayList<>();
@@ -19,9 +19,17 @@ public class ShoppingCart {
 
     public boolean AddLineItem(LineItem lineItem){
         assert lineItem!=null;
+        if (lineItems.isEmpty()) this.created=new Date();
         return lineItems.add(lineItem);
     }
 
 
-
+    public boolean RemoveWebUser() {
+        webUser=null;
+        for (LineItem item: lineItems) {
+            item.RemoveShoppingCart();
+            lineItems.remove(item);
+        }
+        return true;
+    }
 }
