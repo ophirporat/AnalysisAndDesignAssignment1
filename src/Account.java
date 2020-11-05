@@ -24,6 +24,17 @@ public class Account {
         this.shoppingCart = shoppingCart;
         this.payments = new ArrayList<>();
         this.customer = customer;
+
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public boolean AddPayment(Payment payment){return payments.add(payment);}
+
+    public boolean AddPayments(ArrayList<Payment> payments){return payments.addAll(payments);}
+
+    public boolean AddOrder(Order order){return orders.add(order);}
 
 }

@@ -19,6 +19,8 @@ public class LineItem {
     }
 
 
-    public void RemoveShoppingCart() {
+    public void Remove() {
+
+
     }
 }
