@@ -34,6 +34,7 @@ public class WebUser {
     public boolean AddShopphingCart(ShoppingCart shoppingCart){
         if (!HasShoppingcart()){
             this.shoppingCart=shoppingCart;
+            shoppingCart.setWebUser(this);
             return true;
         }
         return false;
