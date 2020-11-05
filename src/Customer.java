@@ -7,12 +7,16 @@ public class Customer {
     private WebUser webUser;
     private Account account;
 
-    public Customer(String id, String address, String phone, String email) {
+    public Customer(String id, String address, String phone, String email, Account account) {
         this.id = id;
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.account = account;
+    }
 
+    public Account getAccount() {
+        return account;
     }
 
     public boolean AddWebUser(WebUser webUser){
