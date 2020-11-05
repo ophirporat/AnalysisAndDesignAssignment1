@@ -23,6 +23,7 @@ public class WebUser {
         return true;
     }
 
+
     private boolean HasShoppingcart(){
         return shoppingCart!=null;
     }
