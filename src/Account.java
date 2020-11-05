@@ -30,6 +30,10 @@ public class Account {
         return id;
     }
 
+    public Order getLastOrder() {
+        return orders.get(orders.size()-1);
+    }
+
     public String getBilling_address() {
         return billing_address;
     }
@@ -43,6 +47,6 @@ public class Account {
 
     public boolean AddPayments(ArrayList<Payment> payments){return payments.addAll(payments);}
 
-    public boolean AddOrder(Order order){return orders.add(order);}
+    public void AddOrder(Order order){ orders.add(order); }
 
 }

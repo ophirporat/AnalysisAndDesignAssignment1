@@ -182,7 +182,7 @@ public class Main {
         if (tempA instanceof PremiumAccount) {
             int pointer = 1;
             while (pointer != 9) {
-                System.out.println("Welcome " + user + " to THE STORE!");
+                System.out.println("Welcome to THE STORE, " + user +"!");
                 System.out.println("What would you like to do next?");
                 System.out.println("press 1 to LINK PRODUCT");
                 System.out.println("press 2 for MAKE ORDER");
@@ -206,14 +206,15 @@ public class Main {
                             System.out.println("Enter product quantity: ");
                             String productquantity = pr.next();
                             int i2 = Integer.parseInt(productquantity);
-                            //product.get(productName).setPrice(i);
-                            //product.get(productName).setQuantity(i2);
+                            product.get(productName).setPrice(i);
+                            product.get(productName).setQuantity(i2);
                         }
                         break;
                     case 2:
                         makeOrder(tempA);
                         break;
                     case 3:
+                        System.out.println(tempA.getLastOrder().toString());
                         break;
                     case 4:
                         break;
@@ -227,7 +228,7 @@ public class Main {
         }else{
                 int pointer = 1;
                 while (pointer != 9) {
-                    System.out.println("Welcome " + user + "to THE STORE!");
+                    System.out.println("Welcome to THE STORE, " + user +"!");
                     System.out.println("What would you like to do next?");
                     System.out.println("press 1 for MAKE ORDER");
                     System.out.println("press 2 to DISPLAY ORDER");
@@ -243,6 +244,7 @@ public class Main {
                             makeOrder(tempA);
                             break;
                         case 2:
+                            System.out.println(tempA.getLastOrder().toString());
                             break;
                         case 3:
                             break;
@@ -264,9 +266,11 @@ public class Main {
         Order newOrd = new Order(tempA);
         if (suppliers.containsKey(SupplierName)) {
             Supplier newSup = suppliers.get(SupplierName);
-            ArrayList <Product> productsList= new ArrayList<Product>();
-            productsList = newSup.getProducts();
-            //newSup loop product
+            ArrayList <Product> productsList= newSup.getProducts();
+            for (Product product: productsList) { // print all products
+                System.out.println(product.getName());
+            }
+            // TODO: print products
             System.out.println("Enter product name from the list: ");
             String productName = su.next();
             Product pro = product.get(productName);
@@ -274,10 +278,12 @@ public class Main {
             String productNum = su.next();
             int i3 = Integer.parseInt(productNum);
             LineItem newLineItem = new LineItem(i3,pro);
+            tempA.AddOrder(newOrd);
             newOrd.AddLineItem(newLineItem);
             newLineItem.SetOrder(newOrd);
             tempA.getShoppingCart().AddLineItem(newLineItem);
-            //another loop
+            // TODO: another loop for next LineItem
+
 
         }
         System.out.println("Enter shipping address: ");
