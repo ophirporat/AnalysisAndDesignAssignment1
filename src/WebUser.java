@@ -1,4 +1,8 @@
 public class WebUser {
+
+    enum UserState{
+        New, Active, Blocked, Banned
+    }
     private String login_id;
     private String password;
     private UserStatus state;
