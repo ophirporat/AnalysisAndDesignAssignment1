@@ -19,8 +19,22 @@ public class LineItem {
     }
 
 
-    public void Remove() {
+    public void RemoveFromShoppingCart() {
+        shoppingCart=null;
+        order.RemoveLineItem(this);
+        product.RemoveLineItem(this);
+        order=null;
+        product=null;
+    }
 
+    public void RemoveFromOrder() {
+        if (order!=null) {
+            order.RemoveLineItem(this);
+            order=null;
+        }
+        if (shoppingCart!=null)RemoveFromShoppingCart();
+    }
+    public void RemoveFromProduct(){
 
     }
 }

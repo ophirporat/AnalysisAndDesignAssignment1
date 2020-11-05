@@ -27,7 +27,7 @@ public class ShoppingCart {
     public boolean RemoveWebUser() {
         webUser=null;
         for (LineItem item: lineItems) {
-            item.RemoveShoppingCart();
+            item.RemoveFromShoppingCart();
             lineItems.remove(item);
         }
         return true;

@@ -39,6 +39,11 @@ public class WebUser {
         customer.RemoveWebUser();
         return RemoveShoppingCart();
     }
+
+    public String getPassword() {
+        return password;
+    }
+
     public boolean RemoveShoppingCart(){
         if (HasShoppingcart()){
             shoppingCart.RemoveWebUser();

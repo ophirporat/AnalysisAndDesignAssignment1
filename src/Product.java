@@ -47,7 +47,7 @@ public class Product {
     }
 
 
+    public void RemoveLineItem(LineItem lineItem) {
 
-
-
+    }
 }

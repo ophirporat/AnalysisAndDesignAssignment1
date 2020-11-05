@@ -7,11 +7,11 @@ public class Customer {
     private WebUser webUser;
     private Account account;
 
-    public Customer(String id, String address, String phone, String email, Account account) {
+    public Customer(String id, String address, Account account) {
         this.id = id;
         this.address = address;
-        this.phone = phone;
-        this.email = email;
+        this.phone = "555";
+        this.email = ".com";
         this.account = account;
     }
 

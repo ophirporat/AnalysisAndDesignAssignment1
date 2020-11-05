@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
+
+
     enum OrderStatus{
         New, Hold, Shipped, Delivered, Closed
     }
@@ -31,6 +33,15 @@ public class Order {
         this.account=account;
         lineItems=new ArrayList<>();
         payments=new ArrayList<>();
+    }
+
+    public boolean RemoveLineItem(LineItem lineItem) {
+        if (lineItems.contains(lineItem)){
+            lineItem.RemoveFromOrder();
+            lineItems.remove(lineItem);
+            return true;
+        }
+        return false;
     }
 
     public boolean AddLineItem(LineItem lineItem){
