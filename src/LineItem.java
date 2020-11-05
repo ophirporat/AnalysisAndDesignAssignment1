@@ -13,14 +13,12 @@ public class LineItem {
 
     //constructor
 
-    public LineItem(int quantity,int price) {
-
+    public LineItem(int quantity,Product product) {
         this.quantity = quantity;
-        this.price = price;
-    }
-    public void SetProduct(Product product){
+        this.price = product.getPrice();
         this.product=product;
     }
+
     public void SetOrder(Order order){
         this.order=order;
         order.AddLineItem(this);
@@ -29,6 +27,7 @@ public class LineItem {
         this.shoppingCart=shoppingCart;
         shoppingCart.AddLineItem(this);
     }
+
     public int getPrice() {
         return price;
     }

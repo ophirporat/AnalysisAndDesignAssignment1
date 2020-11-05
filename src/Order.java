@@ -25,11 +25,11 @@ public class Order {
     private Account account;
 
 
-    public Order(String ship_to, Account account) {
+    public Order(Account account) {
         this.number = getNum();
         this.ordered = new Date();
         this.shipped = new Date(); //TODO: date
-        this.ship_to = ship_to;
+        this.ship_to = account.getBilling_address();
         this.status = OrderStatus.New;
         this.total = 0;
         this.account=account;
@@ -40,6 +40,10 @@ public class Order {
     public static String getNum() {
         counter++;
         return String.valueOf(counter);
+    }
+
+    public void setShip_to(String ship_to) {
+        this.ship_to = ship_to;
     }
 
     public boolean RemoveLineItem(LineItem lineItem) {

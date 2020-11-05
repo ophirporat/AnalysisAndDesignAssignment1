@@ -9,6 +9,8 @@ public class Product {
     private ArrayList<LineItem> lineItems;
     // association with premiumAccount
     private PremiumAccount premiumAccount;
+    private int price;
+    private int quantity;
 
     //constructors
     public Product(String id, String name, Supplier supplier) {
@@ -17,6 +19,8 @@ public class Product {
         assert supplier!=null;
         this.supplier = supplier;
         lineItems=new ArrayList<>();
+        price=0;
+        quantity=0;
     }
 
     public Product(String id, String name, Supplier supplier, PremiumAccount premiumAccount) {
@@ -30,6 +34,18 @@ public class Product {
     public boolean AddLineItem(LineItem lineItem){
         assert lineItem!=null;
         return lineItems.add(lineItem);
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public boolean AddPremiumAccount(PremiumAccount premiumAccount1){

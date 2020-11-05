@@ -26,6 +26,15 @@ public class Account {
 
     }
 
+    public String getBilling_address() {
+        return billing_address;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+
     public boolean AddPayment(Payment payment){return payments.add(payment);}
 
     public boolean AddPayments(ArrayList<Payment> payments){return payments.addAll(payments);}
