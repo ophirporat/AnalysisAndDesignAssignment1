@@ -3,6 +3,7 @@ public class WebUser {
     enum UserState{
         New, Active, Blocked, Banned
     }
+
     private String login_id;
     private String password;
     private UserState state;
@@ -23,6 +24,9 @@ public class WebUser {
         return true;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
 
     private boolean HasShoppingcart(){
         return shoppingCart!=null;
@@ -46,7 +50,7 @@ public class WebUser {
 
     public boolean RemoveShoppingCart(){
         if (HasShoppingcart()){
-            shoppingCart.RemoveWebUser();
+            //shoppingCart.RemoveWebUser();
             shoppingCart=null;
             return true;
         }
