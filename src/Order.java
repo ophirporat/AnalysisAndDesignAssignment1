@@ -62,5 +62,18 @@ public class Order {
         total+=(lineItem.getPrice()*lineItem.getQuantity());
     }
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "OrderNumber='" + number + '\'' +
+                ", ordered=" + ordered +
+                ", shipped=" + shipped +
+                ", ship_to='" + ship_to + '\'' +
+                ", status=" + status +
+                ", total=" + total +
+                ", lineItems=" + lineItems +
+                ", payments=" + payments +
+                ", account=" + account.getId() +
+                '}';
+    }
 }

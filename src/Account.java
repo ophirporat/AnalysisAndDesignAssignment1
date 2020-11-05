@@ -26,6 +26,10 @@ public class Account {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getBilling_address() {
         return billing_address;
     }

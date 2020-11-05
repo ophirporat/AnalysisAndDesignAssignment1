@@ -12,8 +12,6 @@ public class ShoppingCart {
 
     public ShoppingCart() {
         this.created = new Date();
-        this.webUser = webUser;
-        this.account =account;
         lineItems=new ArrayList<>();
     }
 
@@ -22,7 +20,6 @@ public class ShoppingCart {
         if (lineItems.isEmpty()) this.created=new Date();
         return lineItems.add(lineItem);
     }
-
 
     public boolean RemoveWebUser() {
         webUser=null;
@@ -35,5 +32,13 @@ public class ShoppingCart {
 
     public void RemoveLineItem(LineItem lineItem) {
         lineItems.remove(lineItem);
+    }
+
+    public void setWebUser(WebUser webUser) {
+        this.webUser = webUser;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
