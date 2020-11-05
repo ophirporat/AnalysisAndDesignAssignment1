@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class Main {
         AddToSystem();
         System.out.println("Welcome to THE STORE!");
         int pointer = 1;
-        while (pointer != 6) {
+        while (pointer != 9) {
             System.out.println("press 1 for SIGN IN");
             System.out.println("press 2 for LOG IN");
             System.out.println("press 3 to ADD PRODUCT");
@@ -34,10 +35,10 @@ public class Main {
                     addProduct();
                     break;
                 case 4:
-                    removeProduct(); //TODO
+                    removeProduct();
                     break;
                 case 5:
-                    removeUser();//TODO
+                    removeUser();
                     break;
                 case 9:
                     System.out.println("Thank you, Good Bye!");
@@ -57,7 +58,7 @@ public class Main {
         String userName = in.next();
         System.out.println("Enter password: ");
         String password = in.next();
-        System.out.println("Do you want to have a premium account? \nFor yes, press y \nFor no, press anything else ");
+        System.out.println("Are you a premium account? \nFor yes, press y \nFor no, press anything else ");
         String ans = in.next(); // premium account?
         ShoppingCart tempShoppingCart = new ShoppingCart();
         String tempId = getId();
@@ -98,6 +99,7 @@ public class Main {
         String productId = pr.next();
         System.out.println("Enter product name: ");
         String productName = pr.next();
+        //add if supplier hashmap
         System.out.println("Enter supplier Id: ");
         String SupplierId = pr.next();
         System.out.println("Enter supplier name: ");
@@ -110,11 +112,25 @@ public class Main {
     }
 
     private static void removeProduct() {
-
+        System.out.println("Enter product name to remove: ");
+        Scanner re = new Scanner(System.in);
+        String proName = re.next();
+        if (product.containsKey(proName)) {
+            Product proToRemove = product.get(proName);
+            proToRemove.RemoveProduct();
+            product.remove(proName);
+        }
     }
 
     private static void removeUser() {
-
+        System.out.println("Enter user name to remove: ");
+        Scanner re1 = new Scanner(System.in);
+        String userName1 = re1.next();
+        if (webUsers.containsKey(userName1)) {
+            WebUser userToRemove = webUsers.get(userName1);
+            userToRemove.DeleteWebUser();
+            webUsers.remove(userName1);
+        }
     }
 
     public static void AddToSystem() {
@@ -178,26 +194,34 @@ public class Main {
                 Scanner in = new Scanner(System.in);
                 pointer = in.nextInt();
                 switch (pointer) {
-                    case 1:
+                    case 1: //LINK PRODUCT
                         Scanner pr = new Scanner(System.in);
                         System.out.println("Enter product name: ");
                         String productName = pr.next();
-                        if (product.containsKey(productName)) {
+                        if (product.containsKey(productName)){
                             ((PremiumAccount) tempA).AddProduct(product.get(productName));
-                            break;
-                            case 2:
-                                makeOrder();
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                break;
-                            case 5:
-                                break;
-                            case 9:
-                                System.out.println("Thank you, Good Bye!");
-                                break;
+                            System.out.println("Enter product price: ");
+                            String productPrice = pr.next();
+                            int i = Integer.parseInt(productPrice);
+                            System.out.println("Enter product quantity: ");
+                            String productquantity = pr.next();
+                            int i2 = Integer.parseInt(productquantity);
+                            //product.get(productName).setPrice(i);
+                            //product.get(productName).setQuantity(i2);
                         }
+                        break;
+                    case 2:
+                        makeOrder(tempA);
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 9:
+                        System.out.println("Thank you, Good Bye!");
+                        return;
                 }
             }
         }else{
@@ -216,7 +240,7 @@ public class Main {
 
                     switch (pointer) {
                         case 1:
-                            makeOrder();
+                            makeOrder(tempA);
                             break;
                         case 2:
                             break;
@@ -226,27 +250,38 @@ public class Main {
                             break;
                         case 9:
                             System.out.println("Thank you, Good Bye!");
-                            break;
+                            return;
 
                     }
                 }
             }
-        }
+    }
 
-    private static void makeOrder() {
+    private static void makeOrder(Account tempA) {
         System.out.println("Enter WebUser name to buy from: ");
         Scanner su = new Scanner(System.in);
         String SupplierName = su.next();
+        Order newOrd = new Order(tempA);
         if (suppliers.containsKey(SupplierName)) {
             Supplier newSup = suppliers.get(SupplierName);
-
+            ArrayList <Product> productsList= new ArrayList<Product>();
+            productsList = newSup.getProducts();
             //newSup loop product
-
             System.out.println("Enter product name from the list: ");
             String productName = su.next();
+            Product pro = product.get(productName);
             System.out.println("Enter num of product: ");
             String productNum = su.next();
+            int i3 = Integer.parseInt(productNum);
+            LineItem newLineItem = new LineItem(i3,pro);
+            newOrd.AddLineItem(newLineItem);
+            newLineItem.SetOrder(newOrd);
+            tempA.getShoppingCart().AddLineItem(newLineItem);
             //another loop
+
         }
+        System.out.println("Enter shipping address: ");
+        String shippingAddress = su.next();
+        newOrd.setShip_to(shippingAddress);
     }
 }
