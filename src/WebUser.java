@@ -39,9 +39,9 @@ public class WebUser {
         return false;
     }
 
-    public boolean DeleteWebUser(){
+    public void DeleteWebUser(){
         customer.RemoveWebUser();
-        return RemoveShoppingCart();
+        RemoveShoppingCart();
     }
 
     public String getPassword() {

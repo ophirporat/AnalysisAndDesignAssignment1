@@ -3,6 +3,8 @@ import java.util.Date;
 
 public class Order {
 
+    private static int counter=0;
+
 
     enum OrderStatus{
         New, Hold, Shipped, Delivered, Closed
@@ -23,30 +25,37 @@ public class Order {
     private Account account;
 
 
-    public Order(String number, Date ordered, Date shipped, String ship_to, OrderStatus status, float total , Account account) {
-        this.number = number;
-        this.ordered = ordered;
-        this.shipped = shipped;
+    public Order(String ship_to, Account account) {
+        this.number = getNum();
+        this.ordered = new Date();
+        this.shipped = new Date(); //TODO: date
         this.ship_to = ship_to;
-        this.status = status;
-        this.total = total;
+        this.status = OrderStatus.New;
+        this.total = 0;
         this.account=account;
         lineItems=new ArrayList<>();
         payments=new ArrayList<>();
     }
 
+    public static String getNum() {
+        counter++;
+        return String.valueOf(counter);
+    }
+
     public boolean RemoveLineItem(LineItem lineItem) {
         if (lineItems.contains(lineItem)){
-            lineItem.RemoveFromOrder();
             lineItems.remove(lineItem);
+            total-=lineItem.getPrice()*lineItem.getQuantity();
+            lineItem.RemoveFromWorld();
             return true;
         }
         return false;
     }
 
-    public boolean AddLineItem(LineItem lineItem){
+    public void AddLineItem(LineItem lineItem){
         assert lineItem!=null;
-        return lineItems.add(lineItem);
+        lineItems.add(lineItem);
+        total+=(lineItem.getPrice()*lineItem.getQuantity());
     }
 
 

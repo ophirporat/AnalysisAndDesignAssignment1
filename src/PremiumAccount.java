@@ -14,5 +14,14 @@ public class PremiumAccount extends Account {
 
     public boolean AddProducts(ArrayList<Product> products){return this.products.addAll(products);}
 
+    public boolean RemoveProduct(Product product){
+        if (products.contains(product)){
+            products.remove(product);
+            product.RemovePremiumAccount();
+            return true;
+        }
+        return false;
+    }
+
 
 }

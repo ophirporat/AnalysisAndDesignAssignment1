@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class LineItem {
     private int quantity;
     private int price;
@@ -7,34 +9,39 @@ public class LineItem {
     private Order order;
     // association with ShoppingCart
     private ShoppingCart shoppingCart;
+    private static Random random= new Random();
 
     //constructor
 
-    public LineItem(int quantity, int price, Product product, Order order, ShoppingCart shoppingCart) {
+    public LineItem(int quantity, Product product, Order order, ShoppingCart shoppingCart) {
+
         this.quantity = quantity;
-        this.price = price;
+        this.price = random.nextInt(50);
         this.product = product;
         this.order = order;
         this.shoppingCart = shoppingCart;
     }
 
-
-    public void RemoveFromShoppingCart() {
-        shoppingCart=null;
-        order.RemoveLineItem(this);
-        product.RemoveLineItem(this);
-        order=null;
-        product=null;
+    public int getPrice() {
+        return price;
     }
 
-    public void RemoveFromOrder() {
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void RemoveFromWorld() {
+        if (shoppingCart!=null) {
+            shoppingCart.RemoveLineItem(this);
+            shoppingCart = null;
+        }
         if (order!=null) {
             order.RemoveLineItem(this);
             order=null;
         }
-        if (shoppingCart!=null)RemoveFromShoppingCart();
-    }
-    public void RemoveFromProduct(){
-
+        if (product!=null) {
+            product.RemoveLineItem(this);
+            product = null;
+        }
     }
 }

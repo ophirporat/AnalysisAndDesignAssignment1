@@ -18,5 +18,7 @@ public class Supplier {
         return products.add(product);
     }
 
-
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 }

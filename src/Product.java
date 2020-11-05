@@ -48,6 +48,21 @@ public class Product {
 
 
     public void RemoveLineItem(LineItem lineItem) {
+        if (lineItem!=null && lineItems.contains(lineItem)){
+            lineItems.remove(lineItem);
+            lineItem.RemoveFromWorld();
+        }
+    }
 
+    public void RemoveProduct(){
+
+    }
+
+    public void RemovePremiumAccount() {
+        premiumAccount=null;
+        for (LineItem item: lineItems) {
+            RemoveLineItem(item);
+
+        }
     }
 }
