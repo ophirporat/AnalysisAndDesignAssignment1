@@ -13,15 +13,22 @@ public class LineItem {
 
     //constructor
 
-    public LineItem(int quantity, Product product, Order order, ShoppingCart shoppingCart) {
+    public LineItem(int quantity,int price) {
 
         this.quantity = quantity;
-        this.price = random.nextInt(50);
-        this.product = product;
-        this.order = order;
-        this.shoppingCart = shoppingCart;
+        this.price = price;
     }
-
+    public void SetProduct(Product product){
+        this.product=product;
+    }
+    public void SetOrder(Order order){
+        this.order=order;
+        order.AddLineItem(this);
+    }
+    public void SetShoppingCart(ShoppingCart shoppingCart){
+        this.shoppingCart=shoppingCart;
+        shoppingCart.AddLineItem(this);
+    }
     public int getPrice() {
         return price;
     }
