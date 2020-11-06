@@ -62,6 +62,19 @@ public class Product {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", supplier=" + supplier +
+                ", lineItems=" + lineItems +
+                ", premiumAccount=" + premiumAccount +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
+
     public boolean HasPremiumAccount(){
         return premiumAccount!=null;
     }

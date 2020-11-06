@@ -171,16 +171,19 @@ public class Main {
         String Id = "123";
         String Name = "Moshe";
         Supplier Moshe = new Supplier(Id, Name);
+        allObjects.put(getUniqueId(),Moshe);
 
         suppliers.put("Moshe", Moshe);
 
         String Id1 = "Bamba";
         String Name1 = "Bamba";
         Product Bamba = new Product(Id1, Name1, Moshe);
+        allObjects.put(getUniqueId(),Bamba);
 
         String Id2 = "Ramen";
         String Name2 = "Ramen";
         Product Ramen = new Product(Id2, Name2, Moshe);
+        allObjects.put(getUniqueId(),Ramen);
 
         Moshe.AddProduct(Bamba);
         Moshe.AddProduct(Ramen);
@@ -256,11 +259,21 @@ public class Main {
                         makeOrder(tempA);
                         break;
                     case 3:
-                        System.out.println(tempA.getLastOrder().toString());
+
                         break;
                     case 4:
+                        showAllObjects();
                         break;
                     case 5:
+                        System.out.println("Enter Object Id:");
+                        in = new Scanner(System.in);
+                        String objectId = in.next();
+                        if (allObjects.containsKey(Integer.parseInt(objectId))){
+                            System.out.println(objectId +"  :  " + allObjects.get(Integer.parseInt(objectId)));
+                        }
+                        else {
+                            System.out.println("invalid Id");
+                        }
                         break;
                     case 9:
                         System.out.println("Thank you, Good Bye!");
@@ -292,6 +305,15 @@ public class Main {
                             showAllObjects();
                             break;
                         case 4:
+                            System.out.println("Enter Object Id:");
+                            in = new Scanner(System.in);
+                            String objectId = in.next();
+                            if (allObjects.containsKey(Integer.parseInt(objectId))){
+                                System.out.println(objectId +"  :  " + allObjects.get(Integer.parseInt(objectId)));
+                            }
+                            else {
+                                System.out.println("invalid Id");
+                            }
                             break;
                         case 9:
                             System.out.println("Thank you, Good Bye!");
