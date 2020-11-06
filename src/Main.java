@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
     private static HashMap<String, WebUser> webUsers = new HashMap<>();
     private static HashMap<String, Supplier> suppliers = new HashMap<>();
     private static HashMap<String, Product> product = new HashMap<>();
@@ -99,15 +98,19 @@ public class Main {
         String productId = pr.next();
         System.out.println("Enter product name: ");
         String productName = pr.next();
-        //add if supplier hashmap
         System.out.println("Enter supplier Id: ");
         String SupplierId = pr.next();
         System.out.println("Enter supplier name: ");
         String SupplierName = pr.next();
-        Supplier newSup = new Supplier(SupplierId, SupplierName);
+        Supplier newSup;
+        if (suppliers.containsKey(SupplierName)) //supplier already exists
+            newSup = suppliers.get(SupplierName);
+        else { //supplier doesn't exist
+            newSup = new Supplier(SupplierId, SupplierName);
+            suppliers.put(SupplierName, newSup);
+        }
         Product newPr = new Product(productId, productName, newSup);
         product.put(productName, newPr);
-        suppliers.put(SupplierName, newSup);
         newSup.AddProduct(newPr);
     }
 
@@ -151,6 +154,7 @@ public class Main {
 
         Moshe.AddProduct(Bamba);
         Moshe.AddProduct(Ramen);
+
         product.put("Bamba", Bamba);
         product.put("Ramen", Ramen);
 
@@ -204,8 +208,8 @@ public class Main {
                             String productPrice = pr.next();
                             int i = Integer.parseInt(productPrice);
                             System.out.println("Enter product quantity: ");
-                            String productquantity = pr.next();
-                            int i2 = Integer.parseInt(productquantity);
+                            String productQuantity = pr.next();
+                            int i2 = Integer.parseInt(productQuantity);
                             product.get(productName).setPrice(i);
                             product.get(productName).setQuantity(i2);
                         }
@@ -266,28 +270,41 @@ public class Main {
         Order newOrd = new Order(tempA);
         if (suppliers.containsKey(SupplierName)) {
             Supplier newSup = suppliers.get(SupplierName);
-            ArrayList <Product> productsList= newSup.getProducts();
-            for (Product product: productsList) { // print all products
+            ArrayList <Product> productsList = newSup.getProducts();
+            for (Product product: productsList) { //print all products in the supplier's product list
                 System.out.println(product.getName());
             }
-            // TODO: print products
-            System.out.println("Enter product name from the list: ");
-            String productName = su.next();
-            Product pro = product.get(productName);
-            System.out.println("Enter num of product: ");
-            String productNum = su.next();
-            int i3 = Integer.parseInt(productNum);
-            LineItem newLineItem = new LineItem(i3,pro);
+            String done = "y";
+            while (done.equals("y")) {
+                Product pro = null;
+                boolean stopLoop = true;
+                while (stopLoop) {
+                    System.out.println("Enter product name from the list: ");
+                    String productName = su.next();
+                    for (Product product : productsList) { //checks whether the requested product is on the list
+                        if (productName.equals(product.getName())) {
+                            pro = product;
+                            stopLoop = false;
+                        }
+                    }
+                    if (stopLoop)
+                        System.out.println("The product isn't on the list, Try again");
+                }
+                System.out.println("Enter num of product: ");
+                String productNum = su.next();
+                int i3 = Integer.parseInt(productNum);
+                LineItem newLineItem = new LineItem(i3, pro);
+                newLineItem.SetOrder(newOrd); //setOrder links between lineItem and Order both ways
+                tempA.getShoppingCart().AddLineItem(newLineItem);
+                System.out.println("Would you like to buy more products? \nFor yes, press y \nFor no, press anything else");
+                Scanner in = new Scanner(System.in);
+                done = in.next();
+            }
             tempA.AddOrder(newOrd);
-            newOrd.AddLineItem(newLineItem);
-            newLineItem.SetOrder(newOrd);
-            tempA.getShoppingCart().AddLineItem(newLineItem);
-            // TODO: another loop for next LineItem
-
-
         }
         System.out.println("Enter shipping address: ");
         String shippingAddress = su.next();
         newOrd.setShip_to(shippingAddress);
+        System.out.println("Your order has been completed!");
     }
 }

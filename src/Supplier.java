@@ -12,10 +12,9 @@ public class Supplier {
         products = new ArrayList<>();
     }
 
-    public boolean AddProduct(Product product){
-        assert (product!=null);
-        if (product.HasSupplier() || products.contains(product)) return false;
-        return products.add(product);
+    public void AddProduct(Product product){
+        if (product!=null && !products.contains(product))
+            products.add(product);
     }
 
     public ArrayList<Product> getProducts() {

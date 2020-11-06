@@ -5,25 +5,19 @@ public class Order {
 
     private static int counter=0;
 
-
     enum OrderStatus{
         New, Hold, Shipped, Delivered, Closed
     }
+
     private String number;
     private Date ordered;
     private Date shipped;
-    //Address
-    private String ship_to;
+    private String ship_to;  //Address
     private OrderStatus status;
     private float total;
-
-    // association with LineItem
-    private ArrayList<LineItem> lineItems;
-    // association with Payment
-    private ArrayList<Payment> payments;
-    // compositin with Account
-    private Account account;
-
+    private ArrayList<LineItem> lineItems;  // association with LineItem
+    private ArrayList<Payment> payments;    // association with Payment
+    private Account account;   // composition with Account
 
     public Order(Account account) {
         this.number = getNum();
@@ -65,15 +59,15 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "OrderNumber='" + number + '\'' +
-                ", ordered=" + ordered +
-                ", shipped=" + shipped +
-                ", ship_to='" + ship_to + '\'' +
-                ", status=" + status +
-                ", total=" + total +
-                ", lineItems=" + lineItems +
-                ", payments=" + payments +
-                ", account=" + account.getId() +
-                '}';
+                " OrderNumber=" + number +
+                ",\n ordered=" + ordered +
+                ",\n shipped=" + shipped +
+                ",\n ship to=" + ship_to +
+                ",\n status=" + status +
+                ",\n total=" + total +
+                ",\n lineItems=" + lineItems.toString() +
+                ",\n payments=" + payments +
+                ",\n account=" + account.getId() +
+                " }";
     }
 }
