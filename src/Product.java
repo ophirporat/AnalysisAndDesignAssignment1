@@ -23,6 +23,10 @@ public class Product {
         quantity=0;
     }
 
+    public ArrayList<LineItem> getLineItems() {
+        return lineItems;
+    }
+
     public Product(String id, String name, Supplier supplier, PremiumAccount premiumAccount) {
         this.id = id;
         this.name = name;

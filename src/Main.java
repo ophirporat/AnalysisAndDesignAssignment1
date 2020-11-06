@@ -1,5 +1,8 @@
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +10,14 @@ public class Main {
     private static HashMap<String, WebUser> webUsers = new HashMap<>();
     private static HashMap<String, Supplier> suppliers = new HashMap<>();
     private static HashMap<String, Product> product = new HashMap<>();
+    private static HashMap<Integer,Object> allObjects=new HashMap<>();
     private static int counter;
+    private static int uniqueId=0;
+
+    public static int getUniqueId() {
+        uniqueId++;
+        return uniqueId;
+    }
 
     public static void main(String[] args) {
         counter = 0;
@@ -60,6 +70,7 @@ public class Main {
         System.out.println("Are you a premium account? \nFor yes, press y \nFor no, press anything else ");
         String ans = in.next(); // premium account?
         ShoppingCart tempShoppingCart = new ShoppingCart();
+        allObjects.put(getUniqueId(),tempShoppingCart);
         String tempId = getId();
         Account tempAccount;
         Address tempAddress = new Address();
@@ -69,8 +80,11 @@ public class Main {
         } else { // Account
             tempAccount = new Account(tempId, tempAddress.getAddress(), tempShoppingCart);
         }
+        allObjects.put(getUniqueId(),tempAccount);
         Customer tempCustomer = new Customer(tempId, tempAddress.getAddress(), tempAccount);
+        allObjects.put(getUniqueId(),tempCustomer);
         WebUser newUser = new WebUser(userName, password, tempCustomer);
+        allObjects.put(getUniqueId(),newUser);
         webUsers.put(userName, newUser);
         mainMenu(userName);
     }
@@ -109,19 +123,33 @@ public class Main {
             newSup = new Supplier(SupplierId, SupplierName);
             suppliers.put(SupplierName, newSup);
         }
+        allObjects.put(getUniqueId(),newSup);
         Product newPr = new Product(productId, productName, newSup);
+        allObjects.put(getUniqueId(),newPr);
         product.put(productName, newPr);
         newSup.AddProduct(newPr);
     }
-
+    private static int getObjectUniqueId(Object object){
+        for (HashMap.Entry<Integer, Object> entry: allObjects.entrySet()) {
+            if (entry.getValue() ==object)return entry.getKey();
+        }
+        return -1;
+    }
     private static void removeProduct() {
         System.out.println("Enter product name to remove: ");
         Scanner re = new Scanner(System.in);
         String proName = re.next();
         if (product.containsKey(proName)) {
             Product proToRemove = product.get(proName);
-            proToRemove.RemoveProduct();
             product.remove(proName);
+            int productId =getObjectUniqueId(proToRemove);
+            int lineItemId;
+            for (LineItem lineItem:proToRemove.getLineItems()) {
+                lineItemId=getObjectUniqueId(lineItem);
+                if (lineItemId!=-1)allObjects.remove(lineItemId);
+            }
+            if (productId!=-1)allObjects.remove(productId);
+            proToRemove.RemoveProduct();
         }
     }
 
@@ -131,8 +159,10 @@ public class Main {
         String userName1 = re1.next();
         if (webUsers.containsKey(userName1)) {
             WebUser userToRemove = webUsers.get(userName1);
+            allObjects.remove(getObjectUniqueId(userToRemove));
             userToRemove.DeleteWebUser();
             webUsers.remove(userName1);
+
         }
     }
 
@@ -159,19 +189,27 @@ public class Main {
         product.put("Ramen", Ramen);
 
         ShoppingCart daniShop = new ShoppingCart();
+        allObjects.put(getUniqueId(), daniShop);
         String daniId = getId();
         Address daniAddress = new Address();
         Account daniA = new Account(daniId, daniAddress.getAddress(), daniShop);
+        allObjects.put(getUniqueId(),daniA);
         Customer daniC = new Customer(daniId, daniAddress.getAddress(), daniA);
+        allObjects.put(getUniqueId(),daniC);
         WebUser dani = new WebUser("Dani", "Dani123", daniC);
+        allObjects.put(getUniqueId(),dani);
         dani.AddShopphingCart(daniShop);
 
         ShoppingCart danaShop = new ShoppingCart();
+        allObjects.put(getUniqueId(),danaShop);
         String danaId = getId();
         Address danaAddress = new Address();
         PremiumAccount danaA = new PremiumAccount(danaId, danaAddress.getAddress(), danaShop);
+        allObjects.put(getUniqueId(),danaA);
         Customer danaC = new Customer(danaId, daniAddress.getAddress(), danaA);
+        allObjects.put(getUniqueId(),danaC);
         WebUser dana = new WebUser("Dana", "Dana123", danaC);
+        allObjects.put(getUniqueId(),dana);
         dana.AddShopphingCart(danaShop);
         danaA.AddProduct(Bamba);
 
@@ -251,6 +289,7 @@ public class Main {
                             System.out.println(tempA.getLastOrder().toString());
                             break;
                         case 3:
+                            showAllObjects();
                             break;
                         case 4:
                             break;
@@ -262,12 +301,18 @@ public class Main {
                 }
             }
     }
+    private static void showAllObjects(){
+        for (Map.Entry<Integer,Object> entry:allObjects.entrySet()) {
+            System.out.println(entry.getKey() + "  :  " + entry.getValue());
 
+        }
+    }
     private static void makeOrder(Account tempA) {
         System.out.println("Enter WebUser name to buy from: ");
         Scanner su = new Scanner(System.in);
         String SupplierName = su.next();
         Order newOrd = new Order(tempA);
+        allObjects.put(getUniqueId(),newOrd);
         if (suppliers.containsKey(SupplierName)) {
             Supplier newSup = suppliers.get(SupplierName);
             ArrayList <Product> productsList = newSup.getProducts();
@@ -294,6 +339,7 @@ public class Main {
                 String productNum = su.next();
                 int i3 = Integer.parseInt(productNum);
                 LineItem newLineItem = new LineItem(i3, pro);
+                allObjects.put(getUniqueId(),newLineItem);
                 newLineItem.SetOrder(newOrd); //setOrder links between lineItem and Order both ways
                 tempA.getShoppingCart().AddLineItem(newLineItem);
                 System.out.println("Would you like to buy more products? \nFor yes, press y \nFor no, press anything else");
