@@ -5,14 +5,20 @@ public class PremiumAccount extends Account {
 
     private ArrayList<Product> products;
 
-    public PremiumAccount(String id, String billing_address, ShoppingCart shoppingCart) {
-        super(id, billing_address, shoppingCart);
+    public PremiumAccount(String id, String billing_address, ShoppingCart shoppingCart,int balance) {
+        super(id, billing_address, shoppingCart,balance);
         products =new ArrayList<>();
     }
 
-    public boolean AddProduct(Product product){return products.add(product);}
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
 
-    public boolean AddProducts(ArrayList<Product> products){return this.products.addAll(products);}
+    public boolean AddProduct(Product product){
+        product.AddPremiumAccount(this);
+        return products.add(product);}
+
+
 
     public boolean RemoveProduct(Product product){
         if (products.contains(product)){

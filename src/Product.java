@@ -62,6 +62,10 @@ public class Product {
         return true;
     }
 
+    public PremiumAccount getPremiumAccount() {
+        return premiumAccount;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

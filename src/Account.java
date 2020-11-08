@@ -13,17 +13,25 @@ public class Account {
     private ArrayList<Payment> payments;
     private Customer customer;
 
-    public Account(String id, String billing_address , ShoppingCart shoppingCart) {
+    public Account(String id, String billing_address , ShoppingCart shoppingCart, int balance) {
         this.id = id;
         this.billing_address = billing_address;
         this.is_closed = false;
         this.open = new Date();
         this.close = null;
-        this.balance = 0;
+        this.balance = balance;
         this.orders = new ArrayList<>();
         this.shoppingCart = shoppingCart;
         this.payments = new ArrayList<>();
 
+    }
+
+    public void addOrSubBalance(int balance) {
+        this.balance = this.balance+balance;
+    }
+
+    public int getBalance() {
+        return balance;
     }
 
     public String getId() {
@@ -49,6 +57,12 @@ public class Account {
 
     public boolean AddPayments(ArrayList<Payment> payments){return payments.addAll(payments);}
 
-    public void AddOrder(Order order){ orders.add(order); }
+    public void AddOrder(Order order){
+        orders.add(order);
+        order.setAccount(this);
+    }
 
+    public void addPayment(Payment payment) {
+        payments.add(payment);
+    }
 }

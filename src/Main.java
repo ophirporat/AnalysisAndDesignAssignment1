@@ -10,6 +10,7 @@ public class Main {
     private static HashMap<String, WebUser> webUsers = new HashMap<>();
     private static HashMap<String, Supplier> suppliers = new HashMap<>();
     private static HashMap<String, Product> product = new HashMap<>();
+    private static HashMap<String,PremiumAccount> premiumAccounts = new HashMap<>();
     private static HashMap<Integer,Object> allObjects=new HashMap<>();
     private static int counter;
     private static int uniqueId=0;
@@ -69,19 +70,21 @@ public class Main {
         String password = in.next();
         System.out.println("Are you a premium account? \nFor yes, press y \nFor no, press anything else ");
         String ans = in.next(); // premium account?
+        System.out.println("Enter account's balance");
+        int accountBalance = in.nextInt();
         ShoppingCart tempShoppingCart = new ShoppingCart();
         allObjects.put(getUniqueId(),tempShoppingCart);
-        String tempId = getId();
         Account tempAccount;
         Address tempAddress = new Address();
 
         if (ans.equals("y")) { // PremiumAccount
-            tempAccount = new PremiumAccount(tempId, tempAddress.getAddress(), tempShoppingCart);
+            tempAccount = new PremiumAccount(userName, tempAddress.getAddress(), tempShoppingCart,accountBalance);
+            premiumAccounts.put(tempAccount.getId(),(PremiumAccount)tempAccount);
         } else { // Account
-            tempAccount = new Account(tempId, tempAddress.getAddress(), tempShoppingCart);
+            tempAccount = new Account(userName, tempAddress.getAddress(), tempShoppingCart,accountBalance);
         }
         allObjects.put(getUniqueId(),tempAccount);
-        Customer tempCustomer = new Customer(tempId, tempAddress.getAddress(), tempAccount);
+        Customer tempCustomer = new Customer(userName, tempAddress.getAddress(), tempAccount);
         allObjects.put(getUniqueId(),tempCustomer);
         WebUser newUser = new WebUser(userName, password, tempCustomer);
         allObjects.put(getUniqueId(),newUser);
@@ -193,9 +196,9 @@ public class Main {
 
         ShoppingCart daniShop = new ShoppingCart();
         allObjects.put(getUniqueId(), daniShop);
-        String daniId = getId();
+        String daniId = "Dani";
         Address daniAddress = new Address();
-        Account daniA = new Account(daniId, daniAddress.getAddress(), daniShop);
+        Account daniA = new Account(daniId, daniAddress.getAddress(), daniShop,1000);
         allObjects.put(getUniqueId(),daniA);
         Customer daniC = new Customer(daniId, daniAddress.getAddress(), daniA);
         allObjects.put(getUniqueId(),daniC);
@@ -205,9 +208,10 @@ public class Main {
 
         ShoppingCart danaShop = new ShoppingCart();
         allObjects.put(getUniqueId(),danaShop);
-        String danaId = getId();
+        String danaId = "Dana";
         Address danaAddress = new Address();
-        PremiumAccount danaA = new PremiumAccount(danaId, danaAddress.getAddress(), danaShop);
+        PremiumAccount danaA = new PremiumAccount(danaId, danaAddress.getAddress(), danaShop,0);
+        premiumAccounts.put(danaA.getId(),danaA);
         allObjects.put(getUniqueId(),danaA);
         Customer danaC = new Customer(danaId, daniAddress.getAddress(), danaA);
         allObjects.put(getUniqueId(),danaC);
@@ -222,9 +226,9 @@ public class Main {
     }
 
     public static void mainMenu(String user) {
-        WebUser temp = webUsers.get(user);
-        Account tempA = temp.getCustomer().getAccount();
-        if (tempA instanceof PremiumAccount) {
+        WebUser currentWebUser = webUsers.get(user);
+        Account currentAccount = currentWebUser.getCustomer().getAccount();
+        if (currentAccount instanceof PremiumAccount) {
             int pointer = 1;
             while (pointer != 9) {
                 System.out.println("Welcome to THE STORE, " + user +"!");
@@ -244,7 +248,7 @@ public class Main {
                         System.out.println("Enter product name: ");
                         String productName = pr.next();
                         if (product.containsKey(productName)){
-                            ((PremiumAccount) tempA).AddProduct(product.get(productName));
+                            ((PremiumAccount) currentAccount).AddProduct(product.get(productName));
                             System.out.println("Enter product price: ");
                             String productPrice = pr.next();
                             int i = Integer.parseInt(productPrice);
@@ -256,11 +260,11 @@ public class Main {
                         }
                         break;
                     case 2:
-                        makeOrder(tempA);
+                        makeOrder(currentAccount);
                         break;
                     case 3:
-                        if (tempA.getLastOrder() ==null) System.out.println("Acount has no orders");
-                        else System.out.println(tempA.getLastOrder().toString());
+                        if (currentAccount.getLastOrder() ==null) System.out.println("Acount has no orders");
+                        else System.out.println(currentAccount.getLastOrder().toString());
                         break;
                     case 4:
                         showAllObjects();
@@ -297,11 +301,11 @@ public class Main {
 
                     switch (pointer) {
                         case 1:
-                            makeOrder(tempA);
+                            makeOrder(currentAccount);
                             break;
                         case 2:
-                            if (tempA.getLastOrder() ==null) System.out.println("Acount has no orders");
-                            else System.out.println(tempA.getLastOrder().toString());
+                            if (currentAccount.getLastOrder() ==null) System.out.println("Acount has no orders");
+                            else System.out.println(currentAccount.getLastOrder().toString());
                             break;
                         case 3:
                             showAllObjects();
@@ -331,16 +335,17 @@ public class Main {
 
         }
     }
-    private static void makeOrder(Account tempA) {
-        System.out.println("Enter WebUser name to buy from: ");
+    private static void makeOrder(Account buyerAccount) {
+        System.out.println("Enter Premium account ID: ");
         Scanner su = new Scanner(System.in);
-        String SupplierName = su.next();
-        Order newOrd = new Order(tempA);
+        String premiumAccountId = su.next();
+        Order newOrd = new Order(buyerAccount);
+        float totalOrder=0;
         allObjects.put(getUniqueId(),newOrd);
-        if (suppliers.containsKey(SupplierName)) {
-            Supplier newSup = suppliers.get(SupplierName);
-            ArrayList <Product> productsList = newSup.getProducts();
-            for (Product product: productsList) { //print all products in the supplier's product list
+        if (premiumAccounts.containsKey(premiumAccountId)) {
+            PremiumAccount sellerAccount = premiumAccounts.get(premiumAccountId);
+            ArrayList<Product> productsList = sellerAccount.getProducts();
+            for (Product product : productsList) { //print all products in the supplier's product list
                 System.out.println(product.getName());
             }
             String done = "y";
@@ -361,20 +366,37 @@ public class Main {
                 }
                 System.out.println("Enter num of product: ");
                 String productNum = su.next();
-                int i3 = Integer.parseInt(productNum);
-                LineItem newLineItem = new LineItem(i3, pro);
-                allObjects.put(getUniqueId(),newLineItem);
-                newLineItem.SetOrder(newOrd); //setOrder links between lineItem and Order both ways
-                tempA.getShoppingCart().AddLineItem(newLineItem);
-                System.out.println("Would you like to buy more products? \nFor yes, press y \nFor no, press anything else");
-                Scanner in = new Scanner(System.in);
-                done = in.next();
+                int numberOfProducts = Integer.parseInt(productNum);
+                if (buyerAccount.getBalance() >= numberOfProducts * pro.getPrice()) {
+                    LineItem newLineItem = new LineItem(numberOfProducts, pro);
+                    allObjects.put(getUniqueId(), newLineItem);
+                    newLineItem.SetOrder(newOrd); //setOrder links between lineItem and Order both ways
+                    buyerAccount.getShoppingCart().AddLineItem(newLineItem);
+                    pro.getPremiumAccount().addOrSubBalance(numberOfProducts * pro.getPrice());
+                    buyerAccount.addOrSubBalance(-numberOfProducts * pro.getPrice());
+                    totalOrder += numberOfProducts * pro.getPrice();
+                    System.out.println("Would you like to buy more products? \nFor yes, press y \nFor no, press anything else");
+                    Scanner in = new Scanner(System.in);
+                    done = in.next();
+                } else System.out.println("not enough money");
             }
-            tempA.AddOrder(newOrd);
+            buyerAccount.AddOrder(newOrd);
+            newOrd.setTotal(totalOrder);
+
+            System.out.println("Enter shipping address: ");
+            String shippingAddress = su.next();
+            newOrd.setShip_to(shippingAddress);
+            System.out.println("press 1 for Immediate payment or  2 for Delayed Payment");
+            int paymentChoise = su.nextInt();
+            Payment currentPayment;
+            while (paymentChoise != 1 && paymentChoise != 2) {
+                System.out.println("invalid choise");
+                paymentChoise = su.nextInt();
+            }
+            if (paymentChoise == 1) currentPayment = new ImmediatePayment(totalOrder, buyerAccount, newOrd);
+            else if (paymentChoise == 2) currentPayment = new DelayedPayment(totalOrder, buyerAccount, newOrd);
+            System.out.println("Your order has been completed!");
         }
-        System.out.println("Enter shipping address: ");
-        String shippingAddress = su.next();
-        newOrd.setShip_to(shippingAddress);
-        System.out.println("Your order has been completed!");
+        else System.out.println("invalid Id");
     }
 }

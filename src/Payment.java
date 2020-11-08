@@ -2,18 +2,25 @@ import java.util.Date;
 
 public abstract class Payment {
     private String id;
-    private Date paid;
+    protected Date paid;
     private float total;
     private String details;
     private Account account;
     private Order order;
+    private static int orderId=0;
 
-    public Payment(String id, Date paid, float total, String details, Account account,Order order) {
-        this.id = id;
-        this.paid = paid;
-        this.total = total;
-        this.details = details;
-        this.account = account;
-        this.order = order;
+    public static int getOrderId(){
+        orderId++;
+        return orderId;
     }
+    public Payment(float total, Account account,Order order) {
+        this.id = String.valueOf(getOrderId());
+        this.total = total;
+        this.details = "hey";
+        this.account = account;
+        account.addPayment(this);
+        this.order = order;
+        order.addPayment(this);
+    }
+
 }

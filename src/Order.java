@@ -31,6 +31,17 @@ public class Order {
         payments=new ArrayList<>();
     }
 
+    public void setTotal(float total) {
+        this.total = total;
+    }
+    public void addPayment(Payment payment){
+        payments.add(payment);
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     public static String getNum() {
         counter++;
         return String.valueOf(counter);
