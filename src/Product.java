@@ -96,14 +96,21 @@ public class Product {
     }
 
     public void RemoveProduct(){
-
-    }
-
-    public void RemovePremiumAccount() {
-        premiumAccount=null;
-        for (LineItem item: lineItems) {
-            RemoveLineItem(item);
-
+        //delete supplier
+        if (HasSupplier()){
+            this.supplier.DeleteProduct(this);
         }
+        this.supplier=null;
+
+        //delete premium account
+        if (HasPremiumAccount()){
+            this.premiumAccount.RemoveProduct(this);
+        }
+        this.premiumAccount=null;
+
+//        for (LineItem item: lineItems) { //TODO: check if lineItem deled from main: if not- add!
+//            RemoveLineItem(item);
+//        }
+
     }
 }
