@@ -17,7 +17,7 @@ public class PremiumAccount extends Account {
     public boolean RemoveProduct(Product product){
         if (products.contains(product)){
             products.remove(product);
-            product.RemovePremiumAccount();
+//            product.RemovePremiumAccount(); //TODO: check: if only premium can delete- not good! if everyone can- good!
             return true;
         }
         return false;

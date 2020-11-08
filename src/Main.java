@@ -144,6 +144,7 @@ public class Main {
             product.remove(proName);
             int productId =getObjectUniqueId(proToRemove);
             int lineItemId;
+            //delete line item //TODO: check if works
             for (LineItem lineItem:proToRemove.getLineItems()) {
                 lineItemId=getObjectUniqueId(lineItem);
                 if (lineItemId!=-1)allObjects.remove(lineItemId);

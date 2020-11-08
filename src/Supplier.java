@@ -17,6 +17,11 @@ public class Supplier {
             products.add(product);
     }
 
+    public void DeleteProduct(Product product){
+        if (products.contains(product))
+            products.remove(product);
+    }
+
     public ArrayList<Product> getProducts() {
         return products;
     }
