@@ -300,7 +300,8 @@ public class Main {
                             makeOrder(tempA);
                             break;
                         case 2:
-                            System.out.println(tempA.getLastOrder().toString());
+                            if (tempA.getLastOrder() ==null) System.out.println("Acount has no orders");
+                            else System.out.println(tempA.getLastOrder().toString());
                             break;
                         case 3:
                             showAllObjects();
