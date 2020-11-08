@@ -30,7 +30,9 @@ public class Account {
         return id;
     }
 
-    public Order getLastOrder() {
+    public Order getLastOrder()
+    {
+        if (orders.isEmpty()) return null;
         return orders.get(orders.size()-1);
     }
 
