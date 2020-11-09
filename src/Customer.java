@@ -13,6 +13,7 @@ public class Customer {
         this.phone = "555";
         this.email = ".com";
         this.account = account;
+        account.setCustomer(this);
     }
 
     @Override

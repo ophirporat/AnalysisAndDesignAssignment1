@@ -78,6 +78,7 @@ public class Main {
         Customer tempCustomer = new Customer(userName, tempAddress.getAddress(), tempAccount);
         allObjects.put(getUniqueId(),tempCustomer);
         WebUser newUser = new WebUser(userName, password, tempCustomer);
+        newUser.AddShopphingCart(tempShoppingCart);
         allObjects.put(getUniqueId(),newUser);
         webUsers.put(userName, newUser);
         mainMenu(userName);
@@ -143,6 +144,7 @@ public class Main {
             if (productId!=-1)allObjects.remove(productId);
             proToRemove.RemoveProduct();
         }
+        else System.out.println("product does not exists");
     }
 
     private static void removeUser() {
@@ -150,7 +152,43 @@ public class Main {
         String userName1 = scanner.next();
         if (webUsers.containsKey(userName1)) {
             WebUser userToRemove = webUsers.get(userName1);
+            ShoppingCart shoppingCart = userToRemove.getShoppingCart();
+            Account accountToRemove = shoppingCart.getAccount();
+
+            ArrayList<LineItem> lineItemsToRemove = shoppingCart.getLineItems();
+            ArrayList<Product> productsToRemove=new ArrayList<>();
+            if (accountToRemove!=null) {
+                ArrayList<Order> ordersToRemove=accountToRemove.getOrders();
+                ArrayList<Payment> paymentsToRemove = accountToRemove.getPayments();
+                Customer customerToRemove = accountToRemove.getCustomer();
+                allObjects.remove(getObjectUniqueId(customerToRemove));
+                if (accountToRemove.getClass()==PremiumAccount.class){
+                    PremiumAccount premiumAccount =(PremiumAccount)accountToRemove;
+                    productsToRemove = premiumAccount.getProducts();
+                    for (Product p: productsToRemove) {
+                        lineItemsToRemove.addAll(p.getLineItems());
+                    }
+                    premiumAccounts.remove(premiumAccount.getId());
+
+                }
+                for (Order o:ordersToRemove) {
+                    allObjects.remove(getObjectUniqueId(o));
+                }
+                for (Payment p: paymentsToRemove){
+                    allObjects.remove(getObjectUniqueId(p));
+                }
+            }
             allObjects.remove(getObjectUniqueId(userToRemove));
+            allObjects.remove(getObjectUniqueId(shoppingCart));
+            allObjects.remove(getObjectUniqueId(accountToRemove));
+            for (LineItem l: lineItemsToRemove){
+                allObjects.remove(getObjectUniqueId(l));
+            }
+            for (Product p: productsToRemove){
+                allObjects.remove(getObjectUniqueId(p));
+                product.remove(p.getName());
+                p.RemoveFromSupplier();
+            }
             userToRemove.DeleteWebUser();
             webUsers.remove(userName1);
             }
@@ -366,6 +404,7 @@ public class Main {
                     LineItem newLineItem = new LineItem(numberOfProducts, pro);
                     allObjects.put(getUniqueId(), newLineItem);
                     newLineItem.SetOrder(newOrd); //setOrder links between lineItem and Order both ways
+                    pro.AddLineItem(newLineItem);
                     buyerAccount.getShoppingCart().AddLineItem(newLineItem); // add LineItem to ShoppingCart
                     newLineItem.SetShoppingCart(buyerAccount.getShoppingCart());// add ShoppingCart to LineItem
                     pro.getPremiumAccount().addOrSubBalance(numberOfProducts * pro.getPrice());

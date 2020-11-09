@@ -15,6 +15,10 @@ public class LineItem {
         this.product=product;
     }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public void SetOrder(Order order){
         this.order=order;
         order.AddLineItem(this);

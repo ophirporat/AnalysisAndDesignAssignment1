@@ -22,6 +22,7 @@ public class Account {
         this.balance = balance;
         this.orders = new ArrayList<>();
         this.shoppingCart = shoppingCart;
+        shoppingCart.setAccount(this);
         this.payments = new ArrayList<>();
     }
 
@@ -30,6 +31,22 @@ public class Account {
         return "Account{" +
                 "id='" + id + '\'' +
                 '}';
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public ArrayList<Payment> getPayments() {
+        return payments;
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
     }
 
     public void addOrSubBalance(int balance) {

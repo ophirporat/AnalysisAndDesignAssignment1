@@ -21,6 +21,14 @@ public class ShoppingCart {
         return lineItems.add(lineItem);
     }
 
+    public ArrayList<LineItem> getLineItems() {
+        return lineItems;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
     public boolean RemoveWebUser() {
         webUser=null;
         for (LineItem item: lineItems) {

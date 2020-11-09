@@ -66,7 +66,6 @@ public class Order {
     }
 
     public void AddLineItem(LineItem lineItem){
-        assert lineItem!=null;
         lineItems.add(lineItem);
         total+=(lineItem.getPrice()*lineItem.getQuantity());
     }

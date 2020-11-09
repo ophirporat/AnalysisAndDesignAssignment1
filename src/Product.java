@@ -37,9 +37,12 @@ public class Product {
     //functions
     public boolean AddLineItem(LineItem lineItem){
         assert lineItem!=null;
+        lineItem.setProduct(this);
         return lineItems.add(lineItem);
     }
-
+    public void RemoveFromSupplier(){
+        supplier.DeleteProduct(this);
+    }
     public String getName() {
         return name;
     }

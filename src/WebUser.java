@@ -15,6 +15,7 @@ public class WebUser {
         this.password = password;
         this.state = UserState.New ;
         this.customer = customer;
+        customer.AddWebUser(this);
 
     }
 
@@ -43,6 +44,10 @@ public class WebUser {
     public void DeleteWebUser(){
         customer.RemoveWebUser();
         RemoveShoppingCart();
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
     public String getPassword() {
