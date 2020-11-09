@@ -23,7 +23,13 @@ public class Account {
         this.orders = new ArrayList<>();
         this.shoppingCart = shoppingCart;
         this.payments = new ArrayList<>();
+    }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                '}';
     }
 
     public void addOrSubBalance(int balance) {

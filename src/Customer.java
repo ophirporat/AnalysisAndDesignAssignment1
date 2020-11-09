@@ -15,6 +15,13 @@ public class Customer {
         this.account = account;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                '}';
+    }
+
     public Account getAccount() {
         return account;
     }

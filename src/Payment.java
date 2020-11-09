@@ -23,4 +23,12 @@ public abstract class Payment {
         order.addPayment(this);
     }
 
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id='" + id + '\'' +
+                ", total=" + total +
+                ", account=" + account.getId() +
+                '}';
+    }
 }

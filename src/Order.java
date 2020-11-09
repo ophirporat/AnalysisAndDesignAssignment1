@@ -71,14 +71,9 @@ public class Order {
     public String toString() {
         return "Order{" +
                 " OrderNumber=" + number +
-                ",\n ordered=" + ordered +
-                ",\n shipped=" + shipped +
                 ",\n ship to=" + ship_to +
                 ",\n status=" + status +
                 ",\n total=" + total +
-                ",\n lineItems=" + lineItems.toString() +
-                ",\n payments=" + payments +
-                ",\n account=" + account.getId() +
                 " }";
     }
 }

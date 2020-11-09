@@ -57,4 +57,11 @@ public class WebUser {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "WebUser{" +
+                "login_id='" + login_id + '\'' +
+                '}';
+    }
 }

@@ -71,9 +71,8 @@ public class Product {
         return "Product{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", supplier=" + supplier +
-                ", lineItems=" + lineItems +
-                ", premiumAccount=" + premiumAccount +
+                ", supplier=" + supplier.toString() +
+                ", premiumAccount=" + premiumAccount.getId() +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 '}';

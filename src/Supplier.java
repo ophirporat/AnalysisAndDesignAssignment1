@@ -25,4 +25,11 @@ public class Supplier {
     public ArrayList<Product> getProducts() {
         return products;
     }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

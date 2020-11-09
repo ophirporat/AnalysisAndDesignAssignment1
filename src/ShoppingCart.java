@@ -41,4 +41,11 @@ public class ShoppingCart {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "webUser=" + webUser +
+                '}';
+    }
 }
