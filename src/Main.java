@@ -182,6 +182,7 @@ public class Main {
         String Id2 = "Ramen";
         String Name2 = "Ramen";
         Product Ramen = new Product(Id2, Name2, Moshe);
+        Ramen.setPrice(40);
         allObjects.put(getUniqueId(),Ramen);
 
         Moshe.AddProduct(Bamba);
@@ -215,6 +216,7 @@ public class Main {
         allObjects.put(getUniqueId(),dana);
         dana.AddShopphingCart(danaShop);
         danaA.AddProduct(Bamba);
+        Bamba.setPrice(20);
 
         webUsers.put("Dani", dani);
         webUsers.put("Dana", dana);
