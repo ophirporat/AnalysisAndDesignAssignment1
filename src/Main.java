@@ -366,7 +366,8 @@ public class Main {
                     LineItem newLineItem = new LineItem(numberOfProducts, pro);
                     allObjects.put(getUniqueId(), newLineItem);
                     newLineItem.SetOrder(newOrd); //setOrder links between lineItem and Order both ways
-                    buyerAccount.getShoppingCart().AddLineItem(newLineItem);
+                    buyerAccount.getShoppingCart().AddLineItem(newLineItem); // add LineItem to ShoppingCart
+                    newLineItem.SetShoppingCart(buyerAccount.getShoppingCart());// add ShoppingCart to LineItem
                     pro.getPremiumAccount().addOrSubBalance(numberOfProducts * pro.getPrice());
                     buyerAccount.addOrSubBalance(-numberOfProducts * pro.getPrice());
                     totalOrder += numberOfProducts * pro.getPrice();
@@ -374,8 +375,8 @@ public class Main {
                     done = scanner.next();
                 } else System.out.println("not enough money");
             }
-            buyerAccount.AddOrder(newOrd);
-            newOrd.setTotal(totalOrder);
+            buyerAccount.AddOrder(newOrd); // add order to the buyerAccount
+            newOrd.setTotal(totalOrder); // set total
 
             System.out.println("Enter shipping address: ");
             String shippingAddress = scanner.next();
