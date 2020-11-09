@@ -29,8 +29,7 @@ public class Main {
         while (pointer != 9) {
             System.out.println("press 1 for SIGN IN");
             System.out.println("press 2 for LOG IN");
-            System.out.println("press 3 to ADD PRODUCT");
-            System.out.println("press 4 to REMOVE USER");
+            System.out.println("press 3 to REMOVE USER");
             System.out.println("press 9 to EXIT");
             pointer = scanner.nextInt();
             switch (pointer) {
@@ -41,9 +40,6 @@ public class Main {
                     logIn();
                     break;
                 case 3:
-                    addProduct();
-                    break;
-                case 4:
                     removeUser();
                     break;
                 case 9:
@@ -108,18 +104,18 @@ public class Main {
         String productId = scanner.next();
         System.out.println("Enter product name: ");
         String productName = scanner.next();
-        System.out.println("Enter supplier Id: ");
-        String SupplierId = scanner.next();
+        //System.out.println("Enter supplier Id: ");
+        //String SupplierId = scanner.next();
         System.out.println("Enter supplier name: ");
         String SupplierName = scanner.next();
         Supplier newSup;
         if (suppliers.containsKey(SupplierName)) //supplier already exists
             newSup = suppliers.get(SupplierName);
         else { //supplier doesn't exist
-            newSup = new Supplier(SupplierId, SupplierName);
+            newSup = new Supplier(getId(), SupplierName);
             suppliers.put(SupplierName, newSup);
+            allObjects.put(getUniqueId(),newSup);
         }
-        allObjects.put(getUniqueId(),newSup);
         Product newPr = new Product(productId, productName, newSup);
         allObjects.put(getUniqueId(),newPr);
         product.put(productName, newPr);
@@ -157,8 +153,7 @@ public class Main {
             allObjects.remove(getObjectUniqueId(userToRemove));
             userToRemove.DeleteWebUser();
             webUsers.remove(userName1);
-
-        }
+            }
     }
 
     public static void AddToSystem() {
@@ -229,10 +224,11 @@ public class Main {
                 System.out.println("What would you like to do next?");
                 System.out.println("press 1 to LINK PRODUCT");
                 System.out.println("press 2 to REMOVE PRODUCT");
-                System.out.println("press 3 for MAKE ORDER");
-                System.out.println("press 4 to DISPLAY ORDER");
-                System.out.println("press 5 to SHOW ALL OBJECTS");
-                System.out.println("press 6 to SHOW OBJECT ID");
+                System.out.println("press 3 to ADD PRODUCT");
+                System.out.println("press 4 for MAKE ORDER");
+                System.out.println("press 5 to DISPLAY ORDER");
+                System.out.println("press 6 to SHOW ALL OBJECTS");
+                System.out.println("press 7 to SHOW OBJECT ID");
                 System.out.println("press 9 to LOGOUT");
 
                 pointer = scanner.nextInt();
@@ -256,16 +252,19 @@ public class Main {
                         removeProduct();
                         break;
                     case 3:
-                        makeOrder(currentAccount);
+                        addProduct();
                         break;
                     case 4:
+                        makeOrder(currentAccount);
+                        break;
+                    case 5:
                         if (currentAccount.getLastOrder() ==null) System.out.println("Acount has no orders");
                         else System.out.println(currentAccount.getLastOrder().toString());
                         break;
-                    case 5:
+                    case 6:
                         showAllObjects();
                         break;
-                    case 6:
+                    case 7:
                         System.out.println("Enter Object Id:");
                         String objectId = Main.scanner.next();
                         if (allObjects.containsKey(Integer.parseInt(objectId))){
@@ -287,8 +286,9 @@ public class Main {
                     System.out.println("What would you like to do next?");
                     System.out.println("press 1 for MAKE ORDER");
                     System.out.println("press 2 to DISPLAY ORDER");
-                    System.out.println("press 3 to SHOW ALL OBJECTS");
-                    System.out.println("press 4 to SHOW OBJECT ID");
+                    System.out.println("press 3 to ADD PRODUCT");
+                    System.out.println("press 4 to SHOW ALL OBJECTS");
+                    System.out.println("press 5 to SHOW OBJECT ID");
                     System.out.println("press 9 to LOGOUT");
 
                     pointer = scanner.nextInt();
@@ -302,9 +302,12 @@ public class Main {
                             else System.out.println(currentAccount.getLastOrder().toString());
                             break;
                         case 3:
-                            showAllObjects();
+                            addProduct();
                             break;
                         case 4:
+                            showAllObjects();
+                            break;
+                        case 5:
                             System.out.println("Enter Object Id:");
                             String objectId = scanner.next();
                             if (allObjects.containsKey(Integer.parseInt(objectId))){

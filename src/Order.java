@@ -22,7 +22,7 @@ public class Order {
     public Order(Account account) {
         this.number = getNum();
         this.ordered = new Date();
-        this.shipped = new Date(); //TODO: date
+        this.shipped = new Date();
         this.ship_to = account.getBilling_address();
         this.status = OrderStatus.New;
         this.total = 0;
@@ -36,6 +36,10 @@ public class Order {
     }
     public void addPayment(Payment payment){
         payments.add(payment);
+    }
+
+    public String getNumber() {
+        return number;
     }
 
     public void setAccount(Account account) {
@@ -74,6 +78,7 @@ public class Order {
                 ",\n ship to=" + ship_to +
                 ",\n status=" + status +
                 ",\n total=" + total +
+                ",\n account=" + account.getId() +
                 " }";
     }
 }

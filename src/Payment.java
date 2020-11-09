@@ -29,6 +29,7 @@ public abstract class Payment {
                 "id='" + id + '\'' +
                 ", total=" + total +
                 ", account=" + account.getId() +
+                ", order=" + order.getNumber() +
                 '}';
     }
 }
