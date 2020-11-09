@@ -14,6 +14,7 @@ public class Main {
     private static HashMap<Integer,Object> allObjects=new HashMap<>();
     private static int counter;
     private static int uniqueId=0;
+    public static Scanner scanner= new Scanner(System.in);
 
     public static int getUniqueId() {
         uniqueId++;
@@ -32,8 +33,7 @@ public class Main {
             System.out.println("press 4 to REMOVE PRODUCT");
             System.out.println("press 5 to REMOVE USER");
             System.out.println("press 9 to EXIT");
-            Scanner in = new Scanner(System.in);
-            pointer = in.nextInt();
+            pointer = scanner.nextInt();
             switch (pointer) {
                 case 1:
                     addWebUser();
@@ -64,14 +64,13 @@ public class Main {
 
     private static void addWebUser() {
         System.out.println("Enter user name: ");
-        Scanner in = new Scanner(System.in);
-        String userName = in.next();
+        String userName = scanner.next();
         System.out.println("Enter password: ");
-        String password = in.next();
+        String password = scanner.next();
         System.out.println("Are you a premium account? \nFor yes, press y \nFor no, press anything else ");
-        String ans = in.next(); // premium account?
+        String ans = scanner.next(); // premium account?
         System.out.println("Enter account's balance");
-        int accountBalance = in.nextInt();
+        int accountBalance = scanner.nextInt();
         ShoppingCart tempShoppingCart = new ShoppingCart();
         allObjects.put(getUniqueId(),tempShoppingCart);
         Account tempAccount;
@@ -95,10 +94,9 @@ public class Main {
     private static void logIn() {
         while (true) {
             System.out.println("Enter user name: ");
-            Scanner sc = new Scanner(System.in);
-            String userName = sc.next();
+            String userName = scanner.next();
             System.out.println("Enter password: ");
-            String userPassword = sc.next();
+            String userPassword = scanner.next();
             if (webUsers.containsKey(userName)) {
                 if (userPassword.equals(webUsers.get(userName).getPassword())) {
                     mainMenu(userName);
@@ -111,14 +109,13 @@ public class Main {
 
     private static void addProduct() {
         System.out.println("Enter product Id: ");
-        Scanner pr = new Scanner(System.in);
-        String productId = pr.next();
+        String productId = scanner.next();
         System.out.println("Enter product name: ");
-        String productName = pr.next();
+        String productName = scanner.next();
         System.out.println("Enter supplier Id: ");
-        String SupplierId = pr.next();
+        String SupplierId = scanner.next();
         System.out.println("Enter supplier name: ");
-        String SupplierName = pr.next();
+        String SupplierName = scanner.next();
         Supplier newSup;
         if (suppliers.containsKey(SupplierName)) //supplier already exists
             newSup = suppliers.get(SupplierName);
@@ -140,8 +137,7 @@ public class Main {
     }
     private static void removeProduct() {
         System.out.println("Enter product name to remove: ");
-        Scanner re = new Scanner(System.in);
-        String proName = re.next();
+        String proName = scanner.next();
         if (product.containsKey(proName)) {
             Product proToRemove = product.get(proName);
             product.remove(proName);
@@ -159,8 +155,7 @@ public class Main {
 
     private static void removeUser() {
         System.out.println("Enter user name to remove: ");
-        Scanner re1 = new Scanner(System.in);
-        String userName1 = re1.next();
+        String userName1 = scanner.next();
         if (webUsers.containsKey(userName1)) {
             WebUser userToRemove = webUsers.get(userName1);
             allObjects.remove(getObjectUniqueId(userToRemove));
@@ -241,20 +236,18 @@ public class Main {
                 System.out.println("press 5 to SHOW OBJECT ID");
                 System.out.println("press 9 to LOGOUT");
 
-                Scanner in = new Scanner(System.in);
-                pointer = in.nextInt();
+                pointer = scanner.nextInt();
                 switch (pointer) {
                     case 1: //LINK PRODUCT
-                        Scanner pr = new Scanner(System.in);
                         System.out.println("Enter product name: ");
-                        String productName = pr.next();
+                        String productName = scanner.next();
                         if (product.containsKey(productName)){
                             ((PremiumAccount) currentAccount).AddProduct(product.get(productName));
                             System.out.println("Enter product price: ");
-                            String productPrice = pr.next();
+                            String productPrice = scanner.next();
                             int i = Integer.parseInt(productPrice);
                             System.out.println("Enter product quantity: ");
-                            String productQuantity = pr.next();
+                            String productQuantity = scanner.next();
                             int i2 = Integer.parseInt(productQuantity);
                             product.get(productName).setPrice(i);
                             product.get(productName).setQuantity(i2);
@@ -272,8 +265,7 @@ public class Main {
                         break;
                     case 5:
                         System.out.println("Enter Object Id:");
-                        in = new Scanner(System.in);
-                        String objectId = in.next();
+                        String objectId = Main.scanner.next();
                         if (allObjects.containsKey(Integer.parseInt(objectId))){
                             System.out.println(objectId +"  :  " + allObjects.get(Integer.parseInt(objectId)));
                         }
@@ -297,8 +289,7 @@ public class Main {
                     System.out.println("press 4 to SHOW OBJECT ID");
                     System.out.println("press 9 to LOGOUT");
 
-                    Scanner in = new Scanner(System.in);
-                    pointer = in.nextInt();
+                    pointer = scanner.nextInt();
 
                     switch (pointer) {
                         case 1:
@@ -313,8 +304,7 @@ public class Main {
                             break;
                         case 4:
                             System.out.println("Enter Object Id:");
-                            in = new Scanner(System.in);
-                            String objectId = in.next();
+                            String objectId = scanner.next();
                             if (allObjects.containsKey(Integer.parseInt(objectId))){
                                 System.out.println(objectId +"  :  " + allObjects.get(Integer.parseInt(objectId)));
                             }
@@ -338,8 +328,7 @@ public class Main {
     }
     private static void makeOrder(Account buyerAccount) {
         System.out.println("Enter Premium account ID: ");
-        Scanner su = new Scanner(System.in);
-        String premiumAccountId = su.next();
+        String premiumAccountId = scanner.next();
         Order newOrd = new Order(buyerAccount);
         float totalOrder=0;
         allObjects.put(getUniqueId(),newOrd);
@@ -355,7 +344,7 @@ public class Main {
                 boolean stopLoop = true;
                 while (stopLoop) {
                     System.out.println("Enter product name from the list: ");
-                    String productName = su.next();
+                    String productName = scanner.next();
                     for (Product product : productsList) { //checks whether the requested product is on the list
                         if (productName.equals(product.getName())) {
                             pro = product;
@@ -366,7 +355,7 @@ public class Main {
                         System.out.println("The product isn't on the list, Try again");
                 }
                 System.out.println("Enter num of product: ");
-                String productNum = su.next();
+                String productNum = scanner.next();
                 int numberOfProducts = Integer.parseInt(productNum);
                 if (buyerAccount.getBalance() >= numberOfProducts * pro.getPrice()) {
                     LineItem newLineItem = new LineItem(numberOfProducts, pro);
@@ -377,22 +366,21 @@ public class Main {
                     buyerAccount.addOrSubBalance(-numberOfProducts * pro.getPrice());
                     totalOrder += numberOfProducts * pro.getPrice();
                     System.out.println("Would you like to buy more products? \nFor yes, press y \nFor no, press anything else");
-                    Scanner in = new Scanner(System.in);
-                    done = in.next();
+                    done = scanner.next();
                 } else System.out.println("not enough money");
             }
             buyerAccount.AddOrder(newOrd);
             newOrd.setTotal(totalOrder);
 
             System.out.println("Enter shipping address: ");
-            String shippingAddress = su.next();
+            String shippingAddress = scanner.next();
             newOrd.setShip_to(shippingAddress);
             System.out.println("press 1 for Immediate payment or  2 for Delayed Payment");
-            int paymentChoise = su.nextInt();
+            int paymentChoise = scanner.nextInt();
             Payment currentPayment;
             while (paymentChoise != 1 && paymentChoise != 2) {
                 System.out.println("invalid choise");
-                paymentChoise = su.nextInt();
+                paymentChoise = scanner.nextInt();
             }
             if (paymentChoise == 1) currentPayment = new ImmediatePayment(totalOrder, buyerAccount, newOrd);
             else if (paymentChoise == 2) currentPayment = new DelayedPayment(totalOrder, buyerAccount, newOrd);
