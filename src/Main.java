@@ -30,8 +30,7 @@ public class Main {
             System.out.println("press 1 for SIGN IN");
             System.out.println("press 2 for LOG IN");
             System.out.println("press 3 to ADD PRODUCT");
-            System.out.println("press 4 to REMOVE PRODUCT");
-            System.out.println("press 5 to REMOVE USER");
+            System.out.println("press 4 to REMOVE USER");
             System.out.println("press 9 to EXIT");
             pointer = scanner.nextInt();
             switch (pointer) {
@@ -45,9 +44,6 @@ public class Main {
                     addProduct();
                     break;
                 case 4:
-                    removeProduct();
-                    break;
-                case 5:
                     removeUser();
                     break;
                 case 9:
@@ -232,10 +228,11 @@ public class Main {
                 System.out.println("Welcome to THE STORE, " + user +"!");
                 System.out.println("What would you like to do next?");
                 System.out.println("press 1 to LINK PRODUCT");
-                System.out.println("press 2 for MAKE ORDER");
-                System.out.println("press 3 to DISPLAY ORDER");
-                System.out.println("press 4 to SHOW ALL OBJECTS");
-                System.out.println("press 5 to SHOW OBJECT ID");
+                System.out.println("press 2 to REMOVE PRODUCT");
+                System.out.println("press 3 for MAKE ORDER");
+                System.out.println("press 4 to DISPLAY ORDER");
+                System.out.println("press 5 to SHOW ALL OBJECTS");
+                System.out.println("press 6 to SHOW OBJECT ID");
                 System.out.println("press 9 to LOGOUT");
 
                 pointer = scanner.nextInt();
@@ -256,16 +253,19 @@ public class Main {
                         }
                         break;
                     case 2:
-                        makeOrder(currentAccount);
+                        removeProduct();
                         break;
                     case 3:
+                        makeOrder(currentAccount);
+                        break;
+                    case 4:
                         if (currentAccount.getLastOrder() ==null) System.out.println("Acount has no orders");
                         else System.out.println(currentAccount.getLastOrder().toString());
                         break;
-                    case 4:
+                    case 5:
                         showAllObjects();
                         break;
-                    case 5:
+                    case 6:
                         System.out.println("Enter Object Id:");
                         String objectId = Main.scanner.next();
                         if (allObjects.containsKey(Integer.parseInt(objectId))){
