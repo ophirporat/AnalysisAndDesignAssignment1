@@ -375,15 +375,12 @@ public class Main {
             System.out.println("Enter shipping address: ");
             String shippingAddress = scanner.next();
             newOrd.setShip_to(shippingAddress);
-            System.out.println("press 1 for Immediate payment or  2 for Delayed Payment");
-            int paymentChoise = scanner.nextInt();
+            System.out.println("press 1 for Delayed Payment \n For Immediate payment press any key ");
+            String paymentChoise = scanner.next();
             Payment currentPayment;
-            while (paymentChoise != 1 && paymentChoise != 2) {
-                System.out.println("invalid choise");
-                paymentChoise = scanner.nextInt();
-            }
-            if (paymentChoise == 1) currentPayment = new ImmediatePayment(totalOrder, buyerAccount, newOrd);
-            else if (paymentChoise == 2) currentPayment = new DelayedPayment(totalOrder, buyerAccount, newOrd);
+            if (paymentChoise == "1")currentPayment= new ImmediatePayment(totalOrder, buyerAccount, newOrd);
+            else currentPayment = new DelayedPayment(totalOrder, buyerAccount, newOrd);
+            allObjects.put(getUniqueId(), currentPayment);
             System.out.println("Your order has been completed!");
         }
         else System.out.println("invalid Id");
