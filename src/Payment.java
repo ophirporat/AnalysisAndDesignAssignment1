@@ -13,7 +13,7 @@ public abstract class Payment {
         orderId++;
         return orderId;
     }
-    public Payment(float total, Account account,Order order) {
+    public Payment(float total, Account account, Order order) {
         this.id = String.valueOf(getOrderId());
         this.total = total;
         this.details = "hey";

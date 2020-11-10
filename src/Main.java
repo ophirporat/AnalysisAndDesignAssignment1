@@ -275,7 +275,11 @@ public class Main {
                         System.out.println("Enter product name: ");
                         String productName = scanner.next();
                         if (product.containsKey(productName)){
-                            ((PremiumAccount) currentAccount).AddProduct(product.get(productName));
+                            boolean linked = ((PremiumAccount) currentAccount).AddProduct(product.get(productName));
+                            if (!linked) {
+                                System.out.println("Can not link! This product is already linked to another premium account \nTry again!");
+                                break;
+                            }
                             System.out.println("Enter product price: ");
                             String productPrice = scanner.next();
                             int i = Integer.parseInt(productPrice);
@@ -420,7 +424,7 @@ public class Main {
             System.out.println("Enter shipping address: ");
             String shippingAddress = scanner.next();
             newOrd.setShip_to(shippingAddress);
-            System.out.println("press 1 for Delayed Payment \n For Immediate payment press any key ");
+            System.out.println("press 1 for Delayed Payment \nFor Immediate payment press any key ");
             String paymentChoise = scanner.next();
             Payment currentPayment;
             if (paymentChoise == "1")currentPayment= new ImmediatePayment(totalOrder, buyerAccount, newOrd);

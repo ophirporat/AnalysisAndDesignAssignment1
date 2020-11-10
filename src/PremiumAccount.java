@@ -15,8 +15,14 @@ public class PremiumAccount extends Account {
     }
 
     public boolean AddProduct(Product product){
-        product.AddPremiumAccount(this);
-        return products.add(product);}
+        boolean linked = product.AddPremiumAccount(this);
+        if (linked) {
+            products.add(product);
+            return true;
+        }
+        else
+            return false;
+    }
 
 
 

@@ -23,17 +23,6 @@ public class Product {
         quantity=0;
     }
 
-    public ArrayList<LineItem> getLineItems() {
-        return lineItems;
-    }
-
-    public Product(String id, String name, Supplier supplier, PremiumAccount premiumAccount) {
-        this.id = id;
-        this.name = name;
-        this.supplier = supplier;
-        this.premiumAccount = premiumAccount;
-    }
-
     //functions
     public boolean AddLineItem(LineItem lineItem){
         assert lineItem!=null;
@@ -50,6 +39,8 @@ public class Product {
     public int getPrice() {
         return price;
     }
+
+    public ArrayList<LineItem> getLineItems() { return lineItems; }
 
     public void setPrice(int price) {
         this.price = price;
