@@ -97,6 +97,7 @@ public class Main {
                 }
             }
             System.out.println("Wrong user name or password!");
+            break;
         }
     }
 
@@ -289,6 +290,7 @@ public class Main {
                             product.get(productName).setPrice(i);
                             product.get(productName).setQuantity(i2);
                         }
+                        System.out.println("The product isn't on the list, Try again");
                         break;
                     case 2:
                         removeProduct();
