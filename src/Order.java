@@ -19,6 +19,26 @@ public class Order {
     private ArrayList<Payment> payments;    // association with Payment
     private Account account;   // composition with Account
 
+    @Override
+    public String toString() {
+        String lineItemList = "";
+        for (LineItem item : lineItems) { //print all products in the supplier's product list
+            lineItemList += "produduct name: " + item.getProduct().getName() + "price: " + item.getPrice() + "quantity: " + item.getQuantity() + "), ";
+        }
+        String paymentList = "";
+        for (Payment payment : payments) { //print all products in the supplier's product list
+            paymentList += "(order id: " + payment.getId() + "toatl: " + payment.getTotal() + "), ";
+        }
+        return "Order{" +
+                "number='" + number + '\'' +
+                ", ship_to='" + ship_to + '\'' +
+                ", total=" + total +
+                ", lineItems=" + lineItemList +
+                ", payments=" + paymentList +
+                ", account=" + account +
+                '}';
+    }
+
     public Order(Account account) {
         this.number = getNum();
         this.ordered = new Date();
@@ -70,14 +90,4 @@ public class Order {
         total+=(lineItem.getPrice()*lineItem.getQuantity());
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                " OrderNumber=" + number +
-                ",\n ship to=" + ship_to +
-                ",\n status=" + status +
-                ",\n total=" + total +
-                ",\n account=" + account.getId() +
-                " }";
-    }
 }

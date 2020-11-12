@@ -20,6 +20,9 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id='" + id + '\'' +
+                ", address='" + address + '\'' +
+                ", webUser=" + webUser.getLogin_id() +
+                ", account=" + account +
                 '}';
     }
 
@@ -35,6 +38,9 @@ public class Customer {
         return false;
     }
 
+    public String getId() {
+        return id;
+    }
 
     public void RemoveWebUser() {
         webUser=null;

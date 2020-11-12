@@ -27,9 +27,9 @@ public class Main {
         System.out.println("Welcome to THE STORE!");
         int pointer = 1;
         while (pointer != 9) {
-            System.out.println("press 1 for SIGN IN");
-            System.out.println("press 2 for LOG IN");
-            System.out.println("press 3 to REMOVE USER");
+            System.out.println("press 1 to Add WebUser");
+            System.out.println("press 2 to Login WebUser");
+            System.out.println("press 3 to Remove WebUser");
             System.out.println("press 9 to EXIT");
             pointer = scanner.nextInt();
             switch (pointer) {
@@ -106,8 +106,6 @@ public class Main {
         String productId = scanner.next();
         System.out.println("Enter product name: ");
         String productName = scanner.next();
-        //System.out.println("Enter supplier Id: ");
-        //String SupplierId = scanner.next();
         System.out.println("Enter supplier name: ");
         String SupplierName = scanner.next();
         Supplier newSup;
@@ -261,14 +259,14 @@ public class Main {
             while (pointer != 9) {
                 System.out.println("Welcome to THE STORE, " + user +"!");
                 System.out.println("What would you like to do next?");
-                System.out.println("press 1 to LINK PRODUCT");
-                System.out.println("press 2 to REMOVE PRODUCT");
-                System.out.println("press 3 to ADD PRODUCT");
-                System.out.println("press 4 for MAKE ORDER");
-                System.out.println("press 5 to DISPLAY ORDER");
-                System.out.println("press 6 to SHOW ALL OBJECTS");
-                System.out.println("press 7 to SHOW OBJECT ID");
-                System.out.println("press 9 to LOGOUT");
+                System.out.println("press 1 to Link Product");
+                System.out.println("press 2 to Delete Product");
+                System.out.println("press 3 to Add Product");
+                System.out.println("press 4 for Make order");
+                System.out.println("press 5 to Display order");
+                System.out.println("press 6 to Show All Objects");
+                System.out.println("press 7 to Show Object Id");
+                System.out.println("press 9 to Logout WebUser");
 
                 pointer = scanner.nextInt();
                 switch (pointer) {
@@ -313,6 +311,7 @@ public class Main {
                         String objectId = Main.scanner.next();
                         if (allObjects.containsKey(Integer.parseInt(objectId))){
                             System.out.println(objectId +"  :  " + allObjects.get(Integer.parseInt(objectId)));
+
                         }
                         else {
                             System.out.println("invalid Id");
@@ -328,12 +327,12 @@ public class Main {
                 while (pointer != 9) {
                     System.out.println("Welcome to THE STORE, " + user +"!");
                     System.out.println("What would you like to do next?");
-                    System.out.println("press 1 for MAKE ORDER");
-                    System.out.println("press 2 to DISPLAY ORDER");
-                    System.out.println("press 3 to ADD PRODUCT");
-                    System.out.println("press 4 to SHOW ALL OBJECTS");
-                    System.out.println("press 5 to SHOW OBJECT ID");
-                    System.out.println("press 9 to LOGOUT");
+                    System.out.println("press 1 for Make order");
+                    System.out.println("press 2 to Display order");
+                    System.out.println("press 3 to Add Product");
+                    System.out.println("press 4 to Show All Objects");
+                    System.out.println("press 5 to Show Objects Id");
+                    System.out.println("press 9 to Logout WebUser");
 
                     pointer = scanner.nextInt();
 

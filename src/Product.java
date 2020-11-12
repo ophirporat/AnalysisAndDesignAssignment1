@@ -23,6 +23,23 @@ public class Product {
         quantity=0;
     }
 
+    @Override
+    public String toString() {
+        String lineItemList = "";
+        for (LineItem item : lineItems) { //print all products in the supplier's product list
+            lineItemList += "produduct name: " + item.getProduct().getName() + "price: " + item.getPrice() + "quantity: " + item.getQuantity() + "), ";
+        }
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", supplier=" + supplier.getName() +
+                ", lineItems=" + lineItemList +
+                ", premiumAccount=" + premiumAccount +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
+
     //functions
     public boolean AddLineItem(LineItem lineItem){
         assert lineItem!=null;
@@ -58,16 +75,6 @@ public class Product {
 
     public PremiumAccount getPremiumAccount() {
         return premiumAccount;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
     }
 
     public boolean HasPremiumAccount(){

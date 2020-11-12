@@ -8,6 +8,16 @@ public class WebUser {
     private String password;
     private UserState state;
     private Customer customer;
+
+    @Override
+    public String toString() {
+        return "WebUser{" +
+                "login_id='" + login_id + '\'' +
+                ", customer=" + customer.getId() +
+                ", shoppingCart=" + shoppingCart +
+                '}';
+    }
+
     private ShoppingCart shoppingCart;
 
     public WebUser(String login_id, String password, Customer customer) {
@@ -27,6 +37,10 @@ public class WebUser {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public String getLogin_id() {
+        return login_id;
     }
 
     private boolean HasShoppingcart(){
@@ -63,10 +77,4 @@ public class WebUser {
         return false;
     }
 
-    @Override
-    public String toString() {
-        return "WebUser{" +
-                "login_id='" + login_id + '\'' +
-                '}';
-    }
 }

@@ -37,6 +37,8 @@ public class LineItem {
         return quantity;
     }
 
+    public Product getProduct() { return product; }
+
     public void RemoveFromWorld() {
         if (shoppingCart!=null) {
             shoppingCart.RemoveLineItem(this);
@@ -55,9 +57,11 @@ public class LineItem {
     @Override
     public String toString() {
         return "LineItem{" +
-                "product=" + product.getName() +
-                ", quantity=" + quantity +
+                "quantity=" + quantity +
                 ", price=" + price +
+                ", product=" + product +
+                ", order=" + order +
+                ", shoppingCart=" + shoppingCart +
                 '}';
     }
 

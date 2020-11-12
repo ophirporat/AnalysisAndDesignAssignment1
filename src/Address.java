@@ -11,4 +11,11 @@ private int counter;
     public String getAddress() {
         return address;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "address='" + address + '\'' +
+                '}';
+    }
 }

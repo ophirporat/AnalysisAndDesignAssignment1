@@ -28,8 +28,21 @@ public class Account {
 
     @Override
     public String toString() {
+        String orderList = "";
+        for (Order order : orders) { //print all products in the supplier's product list
+            orderList += order.getNumber() + ", ";
+        }
+        String paymentList = "";
+        for (Payment payment : payments) { //print all products in the supplier's product list
+            paymentList += "(order id: " + payment.getId() + "toatl: " + payment.getTotal() + "), ";
+        }
         return "Account{" +
                 "id='" + id + '\'' +
+                ", balance=" + balance +
+                ", orders=" + orderList +
+                ", shoppingCart=" + shoppingCart +
+                ", payments=" + paymentList +
+                ", customer=" + customer.getId() +
                 '}';
     }
 

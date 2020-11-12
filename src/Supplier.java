@@ -26,10 +26,18 @@ public class Supplier {
         return products;
     }
 
+    public String getName() { return name; }
+
     @Override
     public String toString() {
+        String pro = "";
+        for (Product product : products) { //print all products in the supplier's product list
+            pro += product.getName() + ", ";
+        }
         return "Supplier{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", products=" + pro +
                 '}';
     }
 }

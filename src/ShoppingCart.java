@@ -52,8 +52,14 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
+        String lineItemList = "";
+        for (LineItem item : lineItems) { //print all products in the supplier's product list
+            lineItemList += "produduct name: " + item.getProduct().getName() + "price: " + item.getPrice() + "quantity: " + item.getQuantity() + "), ";
+        }
         return "ShoppingCart{" +
-                "webUser=" + webUser +
+                "webUser=" + webUser.getLogin_id() +
+                ", lineItems=" + lineItemList +
+                ", account=" + account.getId() +
                 '}';
     }
 }

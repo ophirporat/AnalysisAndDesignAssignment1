@@ -23,6 +23,14 @@ public abstract class Payment {
         order.addPayment(this);
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
